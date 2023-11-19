@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
     joinInnerContainer: {
         border: "2px solid grey",
         borderRadius: "10px",
-        padding: "10%",
+        padding: "5%",
         height: "50%",
         backgroundColor: "#2C2D2F",
         [theme.breakpoints.down('sm')]: {
@@ -75,11 +75,13 @@ export const useStyles = makeStyles((theme) => ({
     },
     logoname: {
         fontSize: "30px",
-        marginLeft: "10px",
+        marginLeft: "50px",
         color: "white",
         [theme.breakpoints.down('sm')]: {
             fontSize: "24px",
         },
+        textDecoration: "none",
+        fontWeight: "bold",
     },
 }));
 
@@ -91,7 +93,9 @@ export const Join = () => {
     return (
         <div className={classes.joinOuterContainer}>
             <div className={classes.nav}>
-                <h2 className={classes.logoname}>QuantumCure</h2>
+                <Link to="/" className={classes.logoname}>
+                    QuantumCure
+                </Link>
             </div>
             <div className={classes.joinInnerContainer}>
                 <div className={classes.heading}>

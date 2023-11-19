@@ -1,4 +1,6 @@
+// Chat.js
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import io from "socket.io-client";
 import queryString from "query-string";
 import InfoBar from "../Info/Info";
@@ -6,9 +8,9 @@ import { makeStyles } from "@material-ui/core";
 import Messages from "../Messages/Messages";
 import { encryptMessage, decryptMessage } from "../../services/encryptDecryptService";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   chatOuterContainer: {
-    backgroundColor: "#18191B",
+    backgroundColor: "#18191B",  // Match join page outer container background color
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
@@ -27,7 +29,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: "75%",
     overflow: "auto",
-    backgroundColor: "#818284",
+    backgroundColor: "#2C2D2F",  // Match join page inner container background color
     margin: "20px",
   },
   chat: {
@@ -40,16 +42,17 @@ export const useStyles = makeStyles((theme) => ({
     width: "80%",
     display: "inline",
     padding: "16px",
-    borderRadius: "5px",
+    outline: "none",
+    border: "1px solid #167DFF",  // Match join page button color
     color: "black",
   },
   sendButton: {
-    backgroundColor: "#1877f2",
+    backgroundColor: "#167DFF",  // Match join page button color
     border: "none",
     padding: "16px",
     width: "20%",
     color: "white",
-    borderRadius: "5px",
+
     fontWeight: "bold",
     cursor: "pointer",
   },
@@ -64,13 +67,16 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   logoname: {
-    fontSize: "24px",
-    marginLeft: "20px",
+    fontSize: "30px",
+    marginLeft: "50px",
     color: "white",
+    [theme.breakpoints.down('sm')]: {
+      fontSize: "24px",
+    },
+    textDecoration: "none",
+    fontWeight: "bold",
   },
 }));
-
-
 
 let socket;
 
@@ -80,7 +86,7 @@ export const Chat = ({ location }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const ENDPOINT = "http://localhost:4000";
+  const ENDPOINT = "https://geekathonbackend.onrender.com";
 
   useEffect(() => {
     const { name } = queryString.parse(location.search);
@@ -106,12 +112,9 @@ export const Chat = ({ location }) => {
 
       console.log({ user: message.user, text: message.text });
 
-
       const decryptedMessage = decryptMessage(message.text);
 
-
       setMessages((messages) => [...messages, { ...message, text: decryptedMessage }]);
-
     });
 
     socket.on("users", (users) => {
@@ -126,17 +129,11 @@ export const Chat = ({ location }) => {
 
       let encryptedMessage = encryptMessage(message);
 
-
-
       encryptedMessage = encryptedMessage.toString();
-
-
 
       setMessage(encryptedMessage);
 
-
       console.log({ user: name, text: encryptedMessage });
-
 
       socket.emit("sendMessage", message, () => {
         setMessage("")
@@ -147,7 +144,9 @@ export const Chat = ({ location }) => {
   return (
     <div className={classes.chatOuterContainer}>
       <div className={classes.nav}>
-        <h2 className={classes.logoname}>QuantumCure</h2>
+        <Link to="/" className={classes.logoname}>
+          QuantumCure
+        </Link>
       </div>
       <div className={classes.chatInnerContainer}>
         <InfoBar name={name} />

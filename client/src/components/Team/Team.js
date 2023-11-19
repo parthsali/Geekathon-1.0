@@ -1,11 +1,10 @@
-// Home.js
+// Team.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RiSnapchatLine } from 'react-icons/ri';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    homeOuterContainer: {
+    teamOuterContainer: {
         backgroundColor: "#18191B",
         minHeight: "100vh",
         display: "flex",
@@ -15,38 +14,17 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         position: "relative",
     },
-    homeInnerContainer: {
+    teamInnerContainer: {
         border: "2px solid grey",
         borderRadius: "10px",
-        padding: "5%",
+        padding: "10%",
         height: "40%",
         backgroundColor: "#2C2D2F",
         [theme.breakpoints.down('sm')]: {
             padding: "20px",
         },
     },
-    homeButton: {
-        backgroundColor: "#167DFF",
-        border: "none",
-        padding: "16px",
-        width: "50%",
-        color: "white",
-        borderRadius: "5px",
-        fontWeight: "bold",
-        cursor: "pointer",
-        textDecoration: "none",
-        display: "block",
-        margin: "20px auto",
-        [theme.breakpoints.down('sm')]: {
-            width: "80%",
-        },
-    },
-    logo: {
-        width: "100px",
-        height: "100px",
-        color: "black",
-    },
-    heading: {
+    member: {
         fontSize: "larger",
         fontWeight: "bold",
         marginBottom: "10px",
@@ -73,29 +51,35 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "none",
         fontWeight: "bold",
     },
+    goBackLink: {
+        color: "white",
+        textDecoration: "none",
+        fontWeight: "bold",
+        fontSize: "16px",
+        marginTop: "10px",
+        color: "#167DFF",
+    },
 }));
 
-export const Home = () => {
+export const Team = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.homeOuterContainer}>
+        <div className={classes.teamOuterContainer}>
             <div className={classes.nav}>
                 <Link to="/" className={classes.logoname}>
                     QuantumCure
                 </Link>
             </div>
-            <div className={classes.homeInnerContainer}>
-                <div className={classes.heading}>
-                    <span ><RiSnapchatLine className={classes.logo} /></span>
-                    <div className={classes.heading}>Designing a Secure Communication Channel with Diffie-Hellman and AES-cbc</div>
-                    <div>
-                        <Link to="/join" className={classes.homeButton}>Join Chat</Link>
-                    </div>
-                    <div>
-                        <Link to="/team" className={classes.homeButton}>Meet the Team</Link>
-                    </div>
-                </div>
+            <div className={classes.teamInnerContainer}>
+                <div className={classes.member}>Team Members:</div>
+                <div className={classes.member}>1. Gaurav Patil (Team Lead) </div>
+                <div className={classes.member}>2. Gaurav Sonwane</div>
+                <div className={classes.member}>3. Atharva Waghchoure</div>
+                <div className={classes.member}>4. Parth Sali</div>
+                <Link to="/" className={classes.goBackLink}>
+                    Go back to Home
+                </Link>
             </div>
         </div>
     );
