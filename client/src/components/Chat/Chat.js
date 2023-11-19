@@ -4,6 +4,7 @@ import queryString from "query-string";
 import InfoBar from "../Info/Info";
 import { makeStyles } from "@material-ui/core";
 import Messages from "../Messages/Messages";
+import { encryptMessage, decryptMessage } from "../../services/encryptDecryptService";
 
 export const useStyles = makeStyles((theme) => ({
   chatOuterContainer: {
@@ -87,6 +88,7 @@ export const Chat = ({ location }) => {
     setName(name);
 
     socket.emit("join", { name }, (error) => {
+
       if (error) {
         console.error(error);
       }
@@ -101,7 +103,15 @@ export const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+
+      console.log({ user: message.user, text: message.text });
+
+
+      const decryptedMessage = decryptMessage(message.text);
+
+
+      setMessages((messages) => [...messages, { ...message, text: decryptedMessage }]);
+
     });
 
     socket.on("users", (users) => {
@@ -112,7 +122,25 @@ export const Chat = ({ location }) => {
   const sendMessage = (e) => {
     e.preventDefault();
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      console.log("message", message);
+
+      let encryptedMessage = encryptMessage(message);
+
+
+
+      encryptedMessage = encryptedMessage.toString();
+
+
+
+      setMessage(encryptedMessage);
+
+
+      console.log({ user: name, text: encryptedMessage });
+
+
+      socket.emit("sendMessage", message, () => {
+        setMessage("")
+      });
     }
   };
 
