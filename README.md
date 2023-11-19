@@ -35,12 +35,51 @@ We selected this issue statement because, in today's linked world, protecting se
 
 Visit the [QuantumCure Chat App](https://quantumcure-chat-app.vercel.app/) to experience the secure communication channel.
 
-## Setup Instructions
+## Run Locally
 
-1. Clone the repository.
-2. Navigate to the project directory.
-3. Run `npm install` to install dependencies.
-4. Start the frontend and backend servers using `npm start` in their respective directories.
+Clone the project
+
+```bash
+    git clone https://github.com/parthsali/Geekathon-1.0
+```
+
+Go to the project directory
+
+```bash
+    cd Geekathon-1.0
+```
+
+Install Server Dependencies
+
+```bash
+    cd client/
+    npm install
+```
+
+Start the Client
+
+```bash
+    npm start
+```
+
+Back to main project directory
+
+```bash
+    cd ../
+```
+
+Install Server Dependencies
+
+```bash
+    cd server/
+    npm install
+```
+
+Start the server
+
+```bash
+    npm run dev
+```
 
 ## Team
 
